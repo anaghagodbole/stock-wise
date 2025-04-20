@@ -149,7 +149,7 @@ Follow these steps to set up and run the StockWise project locally.
 **1. Clone the Repository:**
 
 ```bash
-git clone https://github.com/Aniruddhachitte26/StockWise.git
+git clone https://github.com/anaghagodbole/stock-wise.git
 cd StockWise
 ```
 
