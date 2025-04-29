@@ -15,20 +15,20 @@ const WatchlistPreview = () => {
   const [processingTransaction, setProcessingTransaction] = useState(false);
   const navigate = useNavigate();
 
-
+  // UPDATED: Safely format price
   const formatPrice = (price) => {
-    return price.toFixed(2);
+    return typeof price === 'number' ? price.toFixed(2) : '--';
   };
 
-  const handleViewDetails = (symbol) => {
-    navigate(`/stock-analysis/${symbol}?symbol=${symbol}`);
-  };
-
+  // UPDATED: Safely format percent change
   const formatPercentChange = (percent) => {
-    return percent > 0 ? `+${percent.toFixed(2)}%` : `${percent.toFixed(2)}%`;
+    return typeof percent === 'number'
+      ? (percent > 0 ? `+${percent.toFixed(2)}%` : `${percent.toFixed(2)}%`)
+      : '--';
   };
 
   const formatDate = (timestamp) => {
+    if (!timestamp) return '--';
     const date = new Date(timestamp * 1000);
     return date.toLocaleDateString("en-US", {
       month: "short",
@@ -96,6 +96,10 @@ const WatchlistPreview = () => {
     }
   };
 
+  const handleViewDetails = (symbol) => {
+    navigate(`/stock-analysis/${symbol}?symbol=${symbol}`);
+  };
+
   const handleRemoveFromWatchlist = async (symbol) => {
     try {
       const storedUser = localStorage.getItem("currentUser");
@@ -121,7 +125,6 @@ const WatchlistPreview = () => {
         throw new Error("Failed to remove from watchlist");
       }
       
-      // Update the watchlist state
       setWatchlist(prevWatchlist => prevWatchlist.filter(stock => stock.symbol !== symbol));
       showToast(`Removed ${symbol} from watchlist`, "success");
     } catch (error) {
@@ -138,7 +141,7 @@ const WatchlistPreview = () => {
 
   const handleSellStock = (stock) => {
     setSelectedStock(stock);
-    setSellPrice(stock.data.c); // Initialize with current price
+    setSellPrice(stock.data?.c || 0); // Safely access
     setQuantity(1);
     setShowSellModal(true);
   };
@@ -146,17 +149,15 @@ const WatchlistPreview = () => {
   const handleConfirmBuy = async () => {
     try {
       setProcessingTransaction(true);
-      // Logic to handle buy transaction
       const storedUser = localStorage.getItem("currentUser");
       const currentUser = storedUser ? JSON.parse(storedUser) : null;
 
-      
       if (!currentUser || !currentUser.id) {
         showToast("Please log in to buy stocks", "error");
         setShowBuyModal(false);
         return;
       }
-      
+
       const response = await fetch("https://stock-wise-c6py.onrender.com/stocks/transaction", {
         method: "POST",
         headers: {
@@ -166,22 +167,19 @@ const WatchlistPreview = () => {
           userId: currentUser.id,
           symbol: selectedStock.symbol,
           quantity: quantity,
-          price: selectedStock.data.c,
+          price: selectedStock.data?.c || 0,
           type: "BUY",
           date: new Date().toISOString(),
         }),
       });
 
       if (response.ok) {
-        // Close modal and reset state
         setShowBuyModal(false);
         setSelectedStock(null);
         setQuantity(1);
-        
-        // Show success toast
+
         showToast(`Successfully purchased ${quantity} shares of ${selectedStock.symbol}`, 'success');
       } else {
-        // Show error toast
         const errorData = await response.json();
         showToast(`Transaction failed: ${errorData.message || "Please try again."}`, 'error');
       }
@@ -196,7 +194,6 @@ const WatchlistPreview = () => {
   const handleConfirmSell = async () => {
     try {
       setProcessingTransaction(true);
-      // Logic to handle sell transaction
       const storedUser = localStorage.getItem("currentUser");
       const currentUser = storedUser ? JSON.parse(storedUser) : null;
       
@@ -226,7 +223,7 @@ const WatchlistPreview = () => {
         setSelectedStock(null);
         setQuantity(1);
         setSellPrice(0);
-        
+
         showToast(`Successfully sold ${quantity} shares of ${selectedStock.symbol}`, 'success');
       } else {
         const errorData = await response.json();
