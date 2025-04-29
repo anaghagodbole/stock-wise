@@ -632,10 +632,10 @@ const PortfolioSummary = () => {
                   History
                 </button>
               </div>
-              <button className="btn btn-outline-primary mt-2">
+              {/* <button className="btn btn-outline-primary mt-2">
                 <i className="bi bi-download me-2"></i>
                 Export Data
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
