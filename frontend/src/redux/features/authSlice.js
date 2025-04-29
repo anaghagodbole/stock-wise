@@ -69,7 +69,7 @@ export const googleLoginHandler = createAsyncThunk(
 			const response = await axios.post(
 				`${
 					authService.API_URL ||
-					"http://localhost:3000"
+					"https://stock-wise-c6py.onrender.com"
 				}/auth/google`,
 				tokenData
 			);
@@ -113,7 +113,7 @@ export const registerBroker = createAsyncThunk(
 			const response = await axios.post(
 				`${
 					authService.API_URL ||
-					"http://localhost:3000"
+					"https://stock-wise-c6py.onrender.com"
 				}/auth/broker-register`,
 				brokerData
 				// No Authorization header needed for registration
@@ -153,7 +153,7 @@ export const verifyAuth = createAsyncThunk(
 			// const response = await axios.get(
 			// 	`${
 			// 		authService.API_URL ||
-			// 		"http://localhost:3000"
+			// 		"https://stock-wise-c6py.onrender.com"
 			// 	}/auth/me`
 			// ); // Replace with your actual endpoint
 			// console.log(
@@ -214,7 +214,7 @@ export const requestPasswordReset = createAsyncThunk(
 			const response = await axios.post(
 				`${
 					authService.API_URL ||
-					"http://localhost:3000"
+					"https://stock-wise-c6py.onrender.com"
 				}/auth/forgot-password`,
 				{ email } // Send email in the request body
 			);
@@ -255,7 +255,7 @@ export const resetPasswordWithOtp = createAsyncThunk(
 			const response = await axios.post(
 				`${
 					authService.API_URL ||
-					"http://localhost:3000"
+					"https://stock-wise-c6py.onrender.com"
 				}/auth/reset-password-otp`,
 				credentials // Send all necessary data
 			);
@@ -302,7 +302,7 @@ export const updateUserProfile = createAsyncThunk(
 			const response = await axios.patch(
 				`${
 					authService.API_URL ||
-					"http://localhost:3000"
+					"https://stock-wise-c6py.onrender.com"
 				}/user/update-profile`, // Ensure endpoint matches backend
 				profileData, // Send updated data
 				{
@@ -361,7 +361,7 @@ export const changeUserPassword = createAsyncThunk(
 				// Using PATCH, adjust if backend uses POST
 				`${
 					authService.API_URL ||
-					"http://localhost:3000"
+					"https://stock-wise-c6py.onrender.com"
 				}/auth/change-password/${user._id}`, // Endpoint requires user ID
 				passwordData,
 				{
@@ -406,7 +406,7 @@ export const uploadProofDocument = createAsyncThunk(
 			const response = await axios.post(
 				`${
 					authService.API_URL ||
-					"http://localhost:3000"
+					"https://stock-wise-c6py.onrender.com"
 				}/user/uploadProof`,
 				formData, // Send formData directly
 				{

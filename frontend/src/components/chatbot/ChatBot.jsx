@@ -41,7 +41,7 @@ export default function ChatBot() {
     setShowOptions(false);
     
     try {
-      const res = await axios.post("http://localhost:3000/summary/ask", {
+      const res = await axios.post("https://stock-wise-c6py.onrender.com/summary/ask", {
         sessionId,
         message: textToSend,
         userId

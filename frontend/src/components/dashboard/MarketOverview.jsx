@@ -48,11 +48,11 @@ const MarketOverview = ({ newsData = [], isLoading = false }) => {
 
   // Categories for filtering
   const categories = [
-    { id: 'all', label: 'All News', color: 'primary' },
-    { id: 'markets', label: 'Markets', color: 'info' },
-    { id: 'stocks', label: 'Stocks', color: 'success' },
-    { id: 'economy', label: 'Economy', color: 'warning' },
-    { id: 'crypto', label: 'Crypto', color: 'danger' }
+    // { id: 'all', label: 'All News', color: 'primary' },
+    // { id: 'markets', label: 'Markets', color: 'info' },
+    // { id: 'stocks', label: 'Stocks', color: 'success' },
+    // { id: 'economy', label: 'Economy', color: 'warning' },
+    // { id: 'crypto', label: 'Crypto', color: 'danger' }
   ];
 
 
@@ -275,7 +275,7 @@ const MarketOverview = ({ newsData = [], isLoading = false }) => {
   useEffect(() => {
     const fetchMarketNews = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/market/news");
+        const response = await axios.get("https://stock-wise-c6py.onrender.com/market/news");
         setDisplayedNews(response.data); // adjust based on actual response structure
       } catch (error) {
         console.error("Error fetching market news:", error);
@@ -362,7 +362,7 @@ const MarketOverview = ({ newsData = [], isLoading = false }) => {
         
         <div className="d-flex align-items-center">
           {/* Theme toggle */}
-          <Button
+          {/* <Button
             variant="link"
             className="me-3 p-0"
             onClick={() => setDarkMode(!darkMode)}
@@ -373,7 +373,7 @@ const MarketOverview = ({ newsData = [], isLoading = false }) => {
             ) : (
               <i className="bi bi-moon-fill" style={{ fontSize: '1.2rem' }}></i>
             )}
-          </Button>
+          </Button> */}
           
           {/* Category filter buttons */}
           <div className="d-none d-md-flex me-3">

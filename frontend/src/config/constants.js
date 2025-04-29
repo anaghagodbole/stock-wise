@@ -1,7 +1,7 @@
 // src/config/constants.js
 
 // API URL
-export const API_URL = 'http://localhost:3000';
+export const API_URL = 'https://stock-wise-c6py.onrender.com';
 
 // Chart Periods
 export const CHART_PERIODS = {
